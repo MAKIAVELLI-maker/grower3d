@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a1030">
+<meta name="robots" content="noindex,nofollow">
+<title>Жизнь Гровера 3D · вход</title>
+<link rel="stylesheet" href="shell.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"><i class="orb a"></i><i class="orb b"></i><i class="orb c"></i><i class="grain"></i></div>
+<main class="wrap">
+  <section class="card" id="card">
+    <div class="logo">ЖИЗНЬ ГРОВЕРА <span>3D</span></div>
+    <div class="tag">ALL BINGO S++ · закрытый доступ</div>
+
+    <div class="legal" id="legal">
+      <p><b>В Украине выращивание конопли без лицензии незаконно, материал образовательный.</b></p>
+      <ul>
+        <li>Только бытовая безопасность: запах, шум, тепло, электрика, отключения.</li>
+        <li>Нет продаж, курьеров, «крыши» и способов уклониться от закона.</li>
+        <li>Граммы — данные сидбанка, оценка, не прогноз. Деньги в игре — игровые.</li>
+      </ul>
+    </div>
+
+    <div id="s-email" class="screen on">
+      <h1>Вход по email</h1>
+      <p class="lead">Пришлём письмо с 6-значным кодом и волшебной ссылкой. Войти могут только адреса из списка.</p>
+      <form id="f-email" autocomplete="on">
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@email.com">
+        </div>
+        <div class="row">
+          <button class="btn" id="b-send" type="submit">Прислать код</button>
+        </div>
+      </form>
+      <div class="status" id="st-email" role="status"></div>
+    </div>
+
+    <div id="s-code" class="screen">
+      <h1>Код из письма</h1>
+      <p class="lead" id="code-lead">Введите 6 цифр или откройте ссылку в письме — вас вернёт сюда.</p>
+      <form id="f-code">
+        <div class="codebox" id="codebox" aria-label="Шестизначный код">
+          <input inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" aria-label="Цифра 1">
+          <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Цифра 2">
+          <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Цифра 3">
+          <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Цифра 4">
+          <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Цифра 5">
+          <input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Цифра 6">
+        </div>
+        <div class="row">
+          <button class="btn" id="b-enter" type="submit">Войти</button>
+          <button class="btn alt" id="b-resend" type="button">Ещё раз</button>
+        </div>
+      </form>
+      <div class="status" id="st-code" role="status"></div>
+      <p class="hint"><button class="link" id="b-back" type="button">Сменить email</button></p>
+    </div>
+
+    <div id="s-wait" class="screen">
+      <div class="spin" aria-hidden="true"></div>
+      <h1 id="wait-title">Проверяем доступ…</h1>
+      <p class="lead" id="wait-lead">Подождите несколько секунд.</p>
+    </div>
+
+    <div id="s-denied" class="screen denied">
+      <div class="mark" aria-hidden="true">🚫</div>
+      <h1>Доступ закрыт</h1>
+      <p class="lead" id="denied-lead">Этого адреса нет в списке допущенных. Если вы должны быть внутри — напишите администратору.</p>
+      <div class="row"><button class="btn alt" id="b-out" type="button">Выйти и сменить email</button></div>
+    </div>
+
+    <p class="foot">Образовательный симулятор. Реальной оплаты и сбора паспорта нет.</p>
+  </section>
+</main>
+<script src="vendor/supabase.js"></script>
+<script src="boot.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
