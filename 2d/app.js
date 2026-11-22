@@ -1,11 +1,20 @@
-/* Оболочка входа «Жизнь Гровера 2D». Код игры не хранится в репозитории — он загружается из приватного хранилища (game/2d/) после проверки списка. */
+/* Оболочка входа «Жизнь Гровера 2D». Код игры не хранится в репозитории — он загружается из приватного хранилища (game/2d/<версия>/) после проверки списка. */
 (function () {
   "use strict";
 
   const SUPABASE_URL = "https://miyaeplmsbrbgbflwqvq.supabase.co";
   const SUPABASE_ANON_KEY = "sb_publishable_7l0U-Dnwc3AdOTFnOz7ZtA_BGzbhu3I";
   const BUCKET = "game";
-  const FILES = { html: "2d/index.html", css: "2d/style.css", js: "2d/game.js" };
+  // Версия файлов игры в bucket: game/2d/<версия>/… берётся из 2d/version.json (рядом с этой страницей).
+  // Нет файла или ошибка — старый путь game/2d/… (версия до v3).
+  async function gameFiles() {
+    let dir = "2d/";
+    try {
+      const r = await fetch(new URL("version.json", window.location.href).href + "?t=" + Date.now(), { cache: "no-store" });
+      if (r.ok) { const j = await r.json(); if (j && /^v[0-9]+$/.test(j.version || "")) dir = "2d/" + j.version + "/"; }
+    } catch (_) {}
+    return { html: dir + "index.html", css: dir + "style.css", js: dir + "game.js" };
+  }
 
   const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: {
@@ -108,6 +117,7 @@
 
   async function downloadGameFiles() {
     const out = {};
+    const FILES = await gameFiles();
     for (const [key, path] of Object.entries(FILES)) {
       const { data, error } = await client.storage.from(BUCKET).download(path);
       if (error || !data) {
