@@ -125,7 +125,19 @@
     return data || null;
   }
 
+  function goto2dIfAsked() {
+    let flag = null;
+    try { flag = localStorage.getItem("grower_go"); } catch (_) {}
+    if (!flag || flag.indexOf("2d|") !== 0) return false;
+    const fresh = Date.now() - Number(flag.slice(3)) < 2 * 60 * 60 * 1000; // метка живёт 2 часа
+    try { localStorage.removeItem("grower_go"); } catch (_) {}
+    if (!fresh) return false;
+    window.location.replace(new URL("2d/", window.location.href.split(/[?#]/)[0]).href);
+    return true;
+  }
+
   async function afterLogin() {
+    if (goto2dIfAsked()) return;
     if (booting) return;
     booting = true;
     show("s-wait");
